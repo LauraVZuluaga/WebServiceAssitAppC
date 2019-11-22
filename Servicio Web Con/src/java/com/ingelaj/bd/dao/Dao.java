@@ -5,7 +5,8 @@
  */
 package com.ingelaj.bd.dao;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
+//import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,7 +26,8 @@ public class Dao {
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            connection = (Connection) DriverManager.getConnection(url, user, password);
+            
+            connection = DriverManager.getConnection(url, user, password);
         }
         catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
