@@ -7,9 +7,11 @@ package com.ingelaj.bd.dao;
 
 import com.ingelaj.bd.entidades.Servicio;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,7 +48,10 @@ public class ServicioDao {
         return servicios;
     }
     
-    public Servicio get(String idServicio){
+    public Servicio get(String idServicio, String tipoServicio, int duracion, 
+            String cedula_Enfermero, String cedula_paciente, Date fecha, 
+            Time hora, String estado){
+        
       Servicio servicio = new Servicio();
       
       try{
