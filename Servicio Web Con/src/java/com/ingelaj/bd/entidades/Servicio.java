@@ -1,3 +1,5 @@
+package com.ingelaj.bd.entidades;
+
 
 import java.sql.Time;
 import java.util.Date;
