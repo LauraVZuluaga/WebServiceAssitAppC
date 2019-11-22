@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.ingelaj.bd.entidades.Servicio;
 import com.ingelaj.bd.servicio.ServicioService;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;

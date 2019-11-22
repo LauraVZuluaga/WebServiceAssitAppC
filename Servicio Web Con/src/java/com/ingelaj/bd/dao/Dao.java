@@ -27,6 +27,7 @@ public class Dao {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/assistsenior?user=root&password=root");
             connection = DriverManager.getConnection(url, user, password);
         }
         catch(SQLException | ClassNotFoundException ex){

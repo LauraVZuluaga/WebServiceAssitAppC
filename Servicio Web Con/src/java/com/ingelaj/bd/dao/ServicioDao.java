@@ -27,7 +27,7 @@ public class ServicioDao {
         
         try{
             Connection connection = Dao.getConnection();
-            String query = "select * from servicio";
+            String query = "select * from servicio;";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             Servicio servicio;
