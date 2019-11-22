@@ -45,4 +45,31 @@ public class ServicioDao {
         }
         return servicios;
     }
+    
+    public Servicio get(String idServicio){
+      Servicio servicio = new Servicio();
+      
+      try{
+          Connection connection = Dao.getConnection();
+          String query;
+          query = "select * from servicio";
+          query += "where idServicio '" + idServicio + ";";
+          PreparedStatement ps = connection.prepareStatement(query);
+          ResultSet rs  = ps.executeQuery();
+          
+          if(rs.next()){
+              servicio = new Servicio(rs.getNString("idServicio"), 
+                        rs.getNString("tipoServicio"),rs.getInt("duracion"), 
+                        rs.getNString("cedula_Enfermero"),
+                        rs.getNString("cedula_Paciente"), 
+                        rs.getDate("fecha"), 
+                        rs.getTime("hora"), rs.getNString("estado"));
+          }
+          
+      } catch (SQLException ex) {
+            Logger.getLogger(ServicioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return servicio;
+    }
 }
+
