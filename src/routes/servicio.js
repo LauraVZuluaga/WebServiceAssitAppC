@@ -3,8 +3,9 @@ const router = express.Router();
 
 const mysqlConnection = require('../database.js');
 
-//obtener la información
-//se crea la ruta (inicial)
+/*http://localhost:3000/ devuelve un arreglo de JSON con cada uno de los servicios
+agendados
+*/
 router.get('/', (req, res) =>{
     //Consulta a la DB
     mysqlConnection.query('SELECT * FROM servicio', (err, rows, fields) => {
@@ -16,7 +17,10 @@ router.get('/', (req, res) =>{
     });
 });
 
-router.get('/:idServicio', (req, res) => {
+/*http://localhost:3000/servicio/idServicio retorna un JSON con la información disponible para ese servicio
+ Ejemplo --> http://localhost:3000/servicio/14 
+*/
+router.get('/servicio/:idServicio', (req, res) => {
     //recibe el parametro
    const {idServicio} = req.params;
    console.log(idServicio);
@@ -31,8 +35,56 @@ router.get('/:idServicio', (req, res) => {
    });
 });
 
-//Insertar dato 
+/* http://localhost:3000/paciente/cedula_Paciente retorna un JSON con la información disponible 
+de los servicios que tiene agendados un paciente
+Ejemplo --> http://localhost:3000/paciente/105387643
+*/
+router.get('/paciente/:cedula_Paciente', (req, res) => {
+    //recibe el parametro
+   const {cedula_Paciente} = req.params;
+   console.log(cedula_Paciente);
+   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Paciente = ?', [cedula_Paciente], 
+   (err, rows, fields) => {
+       if(!err){
+           //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
+           res.json(rows[0]);
+       }else{
+           console.log(err);
+       }
+   });
+});
 
+/* http://localhost:3000/paciente/cedula_Enfermero retorna un JSON con la información disponible 
+de los servicios que tiene agendados un paciente
+Ejemplo --> http://localhost:3000/enfermero/105387643
+*/
+router.get('/enfermero/:cedula_Enfermero', (req, res) => {
+    //recibe el parametro
+   const {cedula_Enfermero} = req.params;
+   console.log(cedula_Enfermero);
+   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero], 
+   (err, rows, fields) => {
+       if(!err){
+           //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
+           res.json(rows[0]);
+       }else{
+           console.log(err);
+       }
+   });
+});
+
+/*Para realizar la inserción de datos necesario un JSON con la estructura como sigue
+{
+    "idServicio": 1,
+    "tipoServicio": "Caminar",
+    "duracion": 3,
+    "cedula_Enfermero": "105768909",
+    "cedula_Paciente": "1053866373",
+    "fecha": "2019-04-15,
+    "hora": "08:00:00",
+    "estado": "Cancelado"
+}
+*/
 router.post('/', (req, res) => {
     const {idServicio, tipoServicio, duracion, 
     cedula_Enfermero, cedula_Paciente, fecha, hora,
@@ -50,14 +102,5 @@ router.post('/', (req, res) => {
             }
         });
 })
-
-//Ruta no necesaria
-/*
-
-router.put('/:idServicio', (req, res) =>{
-    const {tipoServicio, duracion} = req.body;
-    const {idServicio} = req.params; 
-})
-*/
 
 module.exports = router;
