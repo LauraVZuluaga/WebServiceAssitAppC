@@ -1,8 +1,6 @@
-//inicializar servidor
-//conectarnos 
-const mysql = require('mysql');
 
-//Dado que retorna un objeto entonces lo almacenamos en constante
+//Inicialización del servicio
+const mysql = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
     host: 'localhost',
@@ -22,5 +20,4 @@ mysqlConnection.connect(function (err) {
     }
 });
 
-//Exportar el modulo para utilizarlo en otras partes del proyecto
 module.exports = mysqlConnection;
