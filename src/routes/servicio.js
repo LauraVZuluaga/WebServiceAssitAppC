@@ -31,6 +31,7 @@ router.get('/servicio/:idServicio', (req, res) => {
            res.json(rows[0]);
        }else{
            console.log(err);
+           
        }
    });
 });
