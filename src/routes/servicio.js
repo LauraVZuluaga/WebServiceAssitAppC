@@ -55,7 +55,7 @@ router.get('/paciente/:cedula_Paciente', (req, res) => {
    });
 });
 
-/* http://localhost:3000/paciente/cedula_Enfermero retorna un JSON con la información disponible 
+/* http://localhost:3000/enfermero/cedula_Enfermero retorna un JSON con la información disponible 
 de los servicios que tiene agendados un paciente
 Ejemplo --> http://localhost:3000/enfermero/105387643
 */
@@ -73,6 +73,28 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
        }
    });
 });
+
+
+/* http://localhost:3000/disponibilidad/cedula_Enfermero retorna un JSON con la información disponible 
+de los servicios que tiene agendados un paciente
+Ejemplo --> http://localhost:3000/disponibilidad/105387643
+*/
+router.get('/disponibilidad/:cedula_Enfermero', (req, res) => {
+    //recibe el parametro
+   const {cedula_Enfermero} = req.params;
+   console.log(cedula_Enfermero);
+   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero], 
+   (err, rows, fields) => {
+       if(!err){
+           //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
+           res.json(rows[0]);
+       }else{
+           console.log(err);
+       }
+   });
+});
+
+
 
 /*Para realizar la inserción de datos necesario un JSON con la estructura como sigue
 {
