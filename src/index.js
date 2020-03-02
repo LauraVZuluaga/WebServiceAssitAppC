@@ -13,7 +13,7 @@ app.use(require('./routes/servicio'));
 
 //Inicio del servidor con ip del PC, es necesario para alojar servicio
 //en red temporal
-app.listen(app.get('port'),'192.168.0.4', () =>{
+app.listen(app.get('port'),'192.168.0.6', () =>{
     console.log('Server on port', app.get('port'));
 });
 

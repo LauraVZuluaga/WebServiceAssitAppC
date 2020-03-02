@@ -78,7 +78,7 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
 /* http://localhost:3000/disponibilidad/cedula_Enfermero retorna un JSON con la información disponible 
 de los servicios que tiene agendados un paciente
 Ejemplo --> http://localhost:3000/disponibilidad/105387643
-*/
+
 router.get('/disponibilidad/:cedula_Enfermero', (req, res) => {
     //recibe el parametro
    const {cedula_Enfermero} = req.params;
@@ -94,6 +94,33 @@ router.get('/disponibilidad/:cedula_Enfermero', (req, res) => {
    });
 });
 
+*/
+
+/* http://localhost:3000/consultarD/enfermero/fecha retorna un JSON con los horarios que disponibles 
+de un enfermero dada una fecha
+Ejemplo --> http://localhost:3000/consultarD/105387643/'2019-04-15'
+*/
+
+
+router.get('/consultarD/:enfermero/:fecha', (req, res) => {
+    //recibe el parametro
+    
+   const {enfermero, fecha} = req.params;
+   const query = `
+        SELECT disponibilidad1(${enfermero}, ${fecha});`;
+   console.log(enfermero);
+   console.log(fecha);
+   mysqlConnection.query(query, 
+    (err, rows, fields) => {
+        if(!err){
+            res.json(rows[0]);
+            //res.status(200).json(query.rows);
+            //res.json({Status: 'Disponibilidad obtenida'});
+        }else{
+            console.log(err);
+        }
+    });
+});
 
 
 /*Para realizar la inserción de datos necesario un JSON con la estructura como sigue
