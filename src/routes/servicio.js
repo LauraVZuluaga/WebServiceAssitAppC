@@ -24,7 +24,10 @@ router.get('/servicio/:idServicio', (req, res) => {
     //recibe el parametro
    const {idServicio} = req.params;
    console.log(idServicio);
-   mysqlConnection.query('SELECT * FROM servicio WHERE idServicio = ?', [idServicio], 
+   //mysqlConnection.query('SELECT * FROM servicio WHERE idServicio = ?', [idServicio], 
+   //mysqlConnection.query('SELECT nombre, cedula_Enfermero FROM enfermero e INNER JOIN servicio s ON e.cedula = s.cedula_Enfermero', [cedula_Enfermero],
+   mysqlConnection.query('SELECT e.nombre, e.cedula, s.idServicio, s.tipoServicio, s.cedula_Paciente,s.duracion, s.estado, s.fecha, s.hora FROM enfermero e INNER JOIN servicio s ON e.cedula = s.cedula_Enfermero AND s.idServicio = ?',[idServicio],
+
    (err, rows, fields) => {
        if(!err){
            //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
@@ -63,7 +66,7 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
     //recibe el parametro
    const {cedula_Enfermero} = req.params;
    console.log(cedula_Enfermero);
-   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero], 
+   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero],  
    (err, rows, fields) => {
        if(!err){
            //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
