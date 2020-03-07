@@ -26,7 +26,7 @@ router.get('/servicio/:idServicio', (req, res) => {
    console.log(idServicio);
    //mysqlConnection.query('SELECT * FROM servicio WHERE idServicio = ?', [idServicio], 
    //mysqlConnection.query('SELECT nombre, cedula_Enfermero FROM enfermero e INNER JOIN servicio s ON e.cedula = s.cedula_Enfermero', [cedula_Enfermero],
-   mysqlConnection.query('SELECT e.nombre, e.cedula, s.idServicio, s.tipoServicio, s.cedula_Paciente,s.duracion, s.estado, s.fecha, s.hora FROM enfermero e INNER JOIN servicio s ON e.cedula = s.cedula_Enfermero AND s.idServicio = ?',[idServicio],
+   mysqlConnection.query('SELECT e.nombre, e.apellido, e.cedula, s.idServicio, s.tipoServicio, s.cedula_Paciente,s.duracion, s.estado, s.fecha, s.hora FROM enfermero e INNER JOIN servicio s ON e.cedula = s.cedula_Enfermero AND s.idServicio = ?',[idServicio],
 
    (err, rows, fields) => {
        if(!err){
