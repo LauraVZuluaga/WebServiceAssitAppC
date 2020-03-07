@@ -47,11 +47,11 @@ router.get('/paciente/:cedula_Paciente', (req, res) => {
     //recibe el parametro
    const {cedula_Paciente} = req.params;
    console.log(cedula_Paciente);
-   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Paciente = ?', [cedula_Paciente], 
+   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Paciente = ? AND estado = "Pendiente"', [cedula_Paciente], 
    (err, rows, fields) => {
        if(!err){
            //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
-           res.json(rows[0]);
+           res.json(rows);
        }else{
            console.log(err);
        }
@@ -133,7 +133,7 @@ router.get('/consultarD/:enfermero/:fecha', (req, res) => {
     "duracion": 3,
     "cedula_Enfermero": "105768909",
     "cedula_Paciente": "1053866373",
-    "fecha": "2019-04-15,
+    "fecha": "2019-04-15",
     "hora": "08:00:00",
     "estado": "Cancelado"
 }
