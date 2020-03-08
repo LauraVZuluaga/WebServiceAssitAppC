@@ -77,27 +77,16 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
    });
 });
 
-
-/* http://localhost:3000/disponibilidad/cedula_Enfermero retorna un JSON con la información disponible 
-de los servicios que tiene agendados un paciente
-Ejemplo --> http://localhost:3000/disponibilidad/105387643
-
-router.get('/disponibilidad/:cedula_Enfermero', (req, res) => {
-    //recibe el parametro
-   const {cedula_Enfermero} = req.params;
-   console.log(cedula_Enfermero);
-   mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero], 
+router.get('/listaEnfermeros', (req, res) => {
+   mysqlConnection.query('SELECT cedula, nombre, apellido FROM enfermero', 
    (err, rows, fields) => {
        if(!err){
-           //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
-           res.json(rows[0]);
+           res.json(rows);
        }else{
            console.log(err);
        }
    });
 });
-
-*/
 
 /* http://localhost:3000/consultarD/enfermero/fecha retorna un JSON con los horarios que disponibles 
 de un enfermero dada una fecha
