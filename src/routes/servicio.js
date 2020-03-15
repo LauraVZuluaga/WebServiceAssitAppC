@@ -53,8 +53,8 @@ router.get('/paciente/:cedula_Paciente', (req, res) => {
    });
 });
 
-/* http://localhost:3000/enfermero/cedula_Enfermero retorna un JSON con la información disponible 
-de los servicios que tiene agendados un paciente
+/* http://localhost:3000/enfermero/cedula_Enfermero retorna un JSON con todos los servicios que tiene
+agendados un enfermero
 Ejemplo --> http://localhost:3000/enfermero/105387643
 */
 router.get('/enfermero/:cedula_Enfermero', (req, res) => {
@@ -64,7 +64,6 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
    mysqlConnection.query('SELECT * FROM servicio WHERE cedula_Enfermero = ?', [cedula_Enfermero],  
    (err, rows, fields) => {
        if(!err){
-           //coloco 0 para que sea unicamente el retorno de un objeto y no un arreglo
            res.json(rows[0]);
        }else{
            console.log(err);
@@ -72,6 +71,9 @@ router.get('/enfermero/:cedula_Enfermero', (req, res) => {
    });
 });
 
+/* http://localhost:3000/listaEnfermeros retorna un JSON con la información de cada enfermero
+Ejemplo --> http://localhost:3000/ListaEnfermeros
+*/
 router.get('/listaEnfermeros', (req, res) => {
    mysqlConnection.query('SELECT cedula, nombre, apellido FROM enfermero', 
    (err, rows, fields) => {
@@ -87,22 +89,18 @@ router.get('/listaEnfermeros', (req, res) => {
 de un enfermero dada una fecha
 Ejemplo --> http://localhost:3000/consultarD/105387643/'2019-04-15'
 */
-
-
 router.get('/consultarD/:enfermero/:fecha', (req, res) => {
     //recibe el parametro
     
    const {enfermero, fecha} = req.params;
    const query = `
-        SELECT disponibilidad1(${enfermero}, ${fecha});`;
+        SELECT disponibilidad(${enfermero}, ${fecha});`;
    console.log(enfermero);
    console.log(fecha);
    mysqlConnection.query(query, 
     (err, rows, fields) => {
         if(!err){
             res.json(rows[0]);
-            //res.status(200).json(query.rows);
-            //res.json({Status: 'Disponibilidad obtenida'});
         }else{
             console.log(err);
         }
